@@ -12,38 +12,41 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button submitButton;
-    Button arrayButton;
-    TextView arrayText;
-    EditText responseText;
-    TextView displayText;
-    int count = 0;
+    TextView one;
+    TextView two;
+    TextView three;
+    TextView four;
+    int[] count = {0, 0, 0, 0};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        submitButton=findViewById(R.id.clickButton);
-        arrayButton=findViewById(R.id.clickButton2);
-        responseText=findViewById(R.id.responseEditText);
-        displayText=findViewById(R.id.textBox);
-        arrayText=findViewById(R.id.textBox2);
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("testButton","input is: "+responseText.getText());
-                displayText.setText(responseText.getText());
+        one=findViewById(R.id.textBox);
+        two=findViewById(R.id.textBox2);
+        three=findViewById(R.id.textBox3);
+        four=findViewById(R.id.textBox4);
+        Listener x = new Listener();
+        one.setOnClickListener(x);
+        two.setOnClickListener(x);
+        three.setOnClickListener(x);
+        four.setOnClickListener(x);
+    }
+
+    public class Listener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            TextView current = (TextView) v;
+            if(current == one){
+                count[0] += 1;
+            }else if(current == two){
+                count[1] += 1;
+            }else if(current == three){
+                count[2] += 1;
+            }else if(current == four){
+                count[3] += 1;
             }
-        });
-        arrayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("arrayButton","count is:" + count);
-                count += 1;
-                Resources res = getResources();
-                String[] food = res.getStringArray(R.array.string_array);
-                arrayText.setText(food[count%5]);
-            }
-        });
+        }
     }
 }
